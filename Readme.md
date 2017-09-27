@@ -1,7 +1,7 @@
 # Личный проект «Угадай мелодию» [![Build status][travis-image]][travis-url]
 
 * Студент: [Nikolay Solodukhin](https://up.htmlacademy.ru/ecmascript/3/user/138404).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Воронин](https://htmlacademy.ru/profile/id245996).
 
 ---
 
