@@ -22,8 +22,12 @@
     "gulp-plumber": "1.1.0",
     "gulp-postcss": "7.0.0",
     "gulp-rename": "1.2.2",
-    "gulp-sass": "3.1.0"
+    "gulp-sass": "3.1.0",
+    "pre-commit": "^1.2.2"
   },
+  "pre-commit": [
+    "test"
+  ],
   "engines": {
     "node": "6.11.3"
   }
