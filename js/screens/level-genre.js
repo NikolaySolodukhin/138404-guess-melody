@@ -4,6 +4,7 @@ import {screenResultTimeOver} from './result-time-over.js';
 import {screenResultAttemptsEnd} from './result-attempts-end.js';
 import initReplay from './replay.js';
 
+
 const screenLevelGenre = getNode(`<section class="main main--level main--level-genre js-main">
     <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
@@ -81,13 +82,16 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
     </div>
   </section>`);
 
+const onGenreAnswerInputChange = (ArrayInputs, buttonSend) => {
+  buttonSend.disabled = !ArrayInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+};
+
+
 const initScreenLevelGenre = () => {
   const genreAnswersInputs = Array.from(document.querySelectorAll(`.js-genre-answer-input`));
   const sendButton = document.querySelector(`.js-genre-answer-send`);
 
-  const onGenreAnswerInputChange = () => {
-    sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
-  };
+  onGenreAnswerInputChange(genreAnswersInputs, sendButton);
 
   const onSendButtonClick = (evt) => {
     const randomNumber = getRandomValue();
@@ -111,7 +115,10 @@ const initScreenLevelGenre = () => {
   };
 
   genreAnswersInputs.forEach((genreAnswerInput) => {
-    genreAnswerInput.addEventListener(`change`, onGenreAnswerInputChange);
+    genreAnswerInput.addEventListener(`change`, (evt) => {
+      evt.preventDefault();
+      onGenreAnswerInputChange(genreAnswersInputs, sendButton);
+    });
   });
 
   sendButton.addEventListener(`click`, onSendButtonClick);
