@@ -82,8 +82,8 @@ const screenLevelGenre = getNode(`<section class="main main--level main--level-g
     </div>
   </section>`);
 
-const onGenreAnswerInputChange = (ArrayInputs, buttonSend) => {
-  buttonSend.disabled = !ArrayInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+const onGenreAnswerInputChange = (arrayInputs, buttonSend) => {
+  buttonSend.disabled = !arrayInputs.some((genreAnswerInput) => genreAnswerInput.checked);
 };
 
 
