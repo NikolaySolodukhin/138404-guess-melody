@@ -1,5 +1,5 @@
-import {showScreen} from './utils.js';
-import {screenWelcome, initScreenWelcome} from './screens/welcome.js';
+import {initialState} from './data/game-play.js';
+import showScreen from './templates/show-screen.js';
+import getScreenWelcome from './screens/welcome.js';
 
-showScreen(screenWelcome);
-initScreenWelcome();
+showScreen(getScreenWelcome(initialState));
