@@ -1,126 +1,62 @@
-import {getRandomValue, getNode, showScreen} from '../utils.js';
-import {screenResultWin} from './result-win.js';
-import {screenResultTimeOver} from './result-time-over.js';
-import {screenResultAttemptsEnd} from './result-attempts-end.js';
-import initReplay from './replay.js';
+import getNode from '../templates/get-node.js';
+import testAnswer from '../data/test-answer.js';
+import gameControl from '../game-control.js';
+import {getStateTemplate, getPlayerWrapperTemplate} from '../templates/blocks.js';
 
+const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
 
-const screenLevelGenre = getNode(`<section class="main main--level main--level-genre js-main">
-    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">05</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">00</span>
-      </div>
-    </svg>
-    <div class="main-mistakes">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    </div>
-    <div class="main-wrap">
-      <h2 class="title">Выберите инди-рок треки</h2>
-      <form class="genre">
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--pause"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-1">
-          <label class="genre-answer-check" for="a-1"></label>
-        </div>
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-2">
-          <label class="genre-answer-check" for="a-2"></label>
-        </div>
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-3">
-          <label class="genre-answer-check" for="a-3"></label>
-        </div>
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input class="js-genre-answer-input" type="checkbox" name="answer" value="answer-1" id="a-4">
-          <label class="genre-answer-check" for="a-4"></label>
-        </div>
-        <button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>
-      </form>
-    </div>
-  </section>`);
-
-const onGenreAnswerInputChange = (arrayInputs, buttonSend) => {
-  buttonSend.disabled = !arrayInputs.some((genreAnswerInput) => genreAnswerInput.checked);
+const getTitleTemplate = (text) => {
+  return `<h2 class="title">${text}</h2>`;
 };
 
+const getGenreAnswerTemplate = (answerNumber, songName, songSrc) => {
+  return `<div class="genre-answer">
+            ${getPlayerWrapperTemplate(songSrc)}
+             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songName}" id="a-${answerNumber}">
+             <label class="genre-answer-check" for="a-${answerNumber}"></label>
+           </div>`;
+};
 
-const initScreenLevelGenre = () => {
-  const genreAnswersInputs = Array.from(document.querySelectorAll(`.js-genre-answer-input`));
-  const sendButton = document.querySelector(`.js-genre-answer-send`);
+const getScreenLevelGenreTemplate = (state, question) => {
+  return `<section class="main main--level main--level-genre js-main">
+             ${getStateTemplate(state)}
+             <div class="main-wrap">
+               ${getTitleTemplate(question.title)}
+                <form class="genre js-genre">
+                ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, answer.name, answer.src), ``)}
+                 ${answerSendButtonTemplate}
+                </form>
+           </section>`;
+};
 
-  onGenreAnswerInputChange(genreAnswersInputs, sendButton);
+const getScreenLevelGenre = (state, question, currentPlayer) => {
+  const screenTemplate = getNode(getScreenLevelGenreTemplate(state, question));
+  const genreForm = screenTemplate.querySelector(`.js-genre`);
+  const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
+  const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
-  const onSendButtonClick = (evt) => {
-    const randomNumber = getRandomValue();
-
-    evt.preventDefault();
-
-    switch (randomNumber) {
-      case 1:
-        showScreen(screenResultWin);
-        initReplay();
-        break;
-      case 2:
-        showScreen(screenResultTimeOver);
-        initReplay();
-        break;
-      case 3:
-        showScreen(screenResultAttemptsEnd);
-        initReplay();
-        break;
+  const onGenreFormChange = (evt) => {
+    if (evt.target.closest(`.js-genre-answer-input`)) {
+      sendButton.disabled = !genreAnswersInputs.some((genreAnswerInput) => genreAnswerInput.checked);
     }
   };
 
-  genreAnswersInputs.forEach((genreAnswerInput) => {
-    genreAnswerInput.addEventListener(`change`, (evt) => {
-      evt.preventDefault();
-      onGenreAnswerInputChange(genreAnswersInputs, sendButton);
-    });
-  });
+
+  const onSendButtonClick = (evt) => {
+    const genreAnswersCheckedInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input:checked`));
+    const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
+
+    evt.preventDefault();
+
+    testAnswer(state, question, answers, currentPlayer);
+    gameControl(state);
+  };
+
+  genreForm.addEventListener(`change`, onGenreFormChange);
 
   sendButton.addEventListener(`click`, onSendButtonClick);
+
+  return screenTemplate;
 };
-export {screenLevelGenre, initScreenLevelGenre};
+
+export default getScreenLevelGenre;

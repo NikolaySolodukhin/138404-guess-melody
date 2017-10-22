@@ -1,5 +1,5 @@
 import assert from 'assert';
-import getTimer from './getTimer';
+import getTimer from './get-timer.js';
 
 describe(`installTimer function`, () => {
   it(`should return 29 after timer 1 tick from 30`, () => {

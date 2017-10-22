@@ -1,13 +1,37 @@
-import {getNode} from '../utils.js';
+import getPlayerScore from '../count-score.js';
+import getPlayerResult from '../game-play-result.js';
+import convertSecondsToMinutes from '../convert-sec-to-minutes.js';
+import getNode from '../templates/get-node.js';
+import {logoTemplate, playButtonTemplate} from '../templates/blocks.js';
 
-const screenResultWin = getNode(`<section class="main main--result js-main">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
-    <h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
-      <br>вы&nbsp;набрали 12 баллов (8 быстрых)
-      <br>совершив 3 ошибки</div>
-    <span class="main-comparison">Вы заняли 2 место из 10. Это&nbsp;лучше чем у&nbsp;80%&nbsp;игроков</span>
-    <span role="button" tabindex="0" class="main-replay js-main-replay">Сыграть ещё раз</span>
-  </section>`);
+const getInfoTemplate = (maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+  currentPlayer.score = getPlayerScore(currentPlayer.answers, currentPlayer.remainingNotes);
 
-export {screenResultWin};
+  return `<h2 class="title">Вы настоящий меломан!</h2>
+           <div class="main-stat">
+             За ${spentTime.minutes} минуты и ${spentTime.seconds} секунд
+             <br>
+             вы набрали ${currentPlayer.score} баллов
+             (${currentPlayer.answers.filter((answer) => answer.time < maxQuickAnswerTime).length} быстрых)
+             <br>
+             совершив ${state.mistakes} ошибки
+           </div>
+           <span class="main-comparison">${getPlayerResult(resultsOtherPlayers, currentPlayer)}</span>`;
+};
+
+const getScreenResultWinTemplate = (maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers) => {
+  return `<section class="main main--result js-main">
+             ${logoTemplate}
+             ${getInfoTemplate(maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers)}
+             ${playButtonTemplate}
+           </section>`;
+};
+
+const getScreenResultWin = (maxQuickAnswerTime, state, currentPlayer, resultsOtherPlayers) => {
+  const spentTime = convertSecondsToMinutes(currentPlayer.spentTime);
+  const screenTemplate = getNode(getScreenResultWinTemplate(maxQuickAnswerTime, state, currentPlayer, spentTime, resultsOtherPlayers));
+
+  return screenTemplate;
+};
+
+export default getScreenResultWin;

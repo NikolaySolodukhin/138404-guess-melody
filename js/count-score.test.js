@@ -1,28 +1,28 @@
 import assert from 'assert';
-import countScore from './countScore';
+import getPlayerScore from './count-score.js';
 
 
-describe(`countScore function`, () => {
+describe(`getPlayerScore function`, () => {
   it(`should return -1 if player answered less than 10 questions and has 3 lives left`, () => {
-    assert.equal(-1, countScore(testAnswer1));
+    assert.equal(-1, getPlayerScore(testAnswer1.answersList, testAnswer1.remainingNotes));
   });
   it(`should return 20 if player gave 10 fast answers and has 3 lives left`, () => {
-    assert.equal(20, countScore(testAnswer2));
+    assert.equal(20, getPlayerScore(testAnswer2.answersList, testAnswer2.remainingNotes));
   });
   it(`should return 6 if player gave 3 wrong 5 fast 2 slow answers and has 0 lives left`, () => {
-    assert.equal(6, countScore(testAnswer3));
+    assert.equal(6, getPlayerScore(testAnswer3.answersList, testAnswer3.remainingNotes));
   });
   it(`should return -1 if player gave 4 wrong answers and has 0 lives left`, () => {
-    assert.equal(-1, countScore(testAnswer4));
+    assert.equal(-1, getPlayerScore(testAnswer4.answersList, testAnswer4.remainingNotes));
   });
   it(`should return 9 if player gave 5 fast 3 slow 2 wrong answers and has 1 lives left`, () => {
-    assert.equal(9, countScore(testAnswer5));
+    assert.equal(9, getPlayerScore(testAnswer5.answersList, testAnswer5.remainingNotes));
   });
   it(`should return 12 if player gave 5 fast 4 slow 1 wrong answers and has 2 lives left`, () => {
-    assert.equal(12, countScore(testAnswer6));
+    assert.equal(12, getPlayerScore(testAnswer6.answersList, testAnswer6.remainingNotes));
   });
   it(`should return 10 if player gave 10 slow answers and has 3 lives left`, () => {
-    assert.equal(10, countScore(testAnswer7));
+    assert.equal(10, getPlayerScore(testAnswer7.answersList, testAnswer7.remainingNotes));
   });
 });
 
@@ -60,7 +60,7 @@ const testAnswer1 = {
     time: 10
   }
   ],
-  livesLeft: 3
+  remainingNotes: 3
 };
 const testAnswer2 = {
   answersList: [{
@@ -104,7 +104,7 @@ const testAnswer2 = {
     time: 10
   }
   ],
-  livesLeft: 3
+  remainingNotes: 3
 };
 const testAnswer3 = {
   answersList: [{
@@ -148,7 +148,7 @@ const testAnswer3 = {
     time: 10
   }
   ],
-  livesLeft: 0
+  remainingNotes: 0
 };
 const testAnswer4 = {
   answersList: [{
@@ -188,7 +188,7 @@ const testAnswer4 = {
     time: 10
   }
   ],
-  livesLeft: 0
+  remainingNotes: -1
 };
 const testAnswer5 = {
   answersList: [{
@@ -232,7 +232,7 @@ const testAnswer5 = {
     time: 58
   }
   ],
-  livesLeft: 1
+  remainingNotes: 1
 };
 const testAnswer6 = {
   answersList: [{
@@ -276,7 +276,7 @@ const testAnswer6 = {
     time: 40
   }
   ],
-  livesLeft: 2
+  remainingNotes: 2
 };
 const testAnswer7 = {
   answersList: [{
@@ -320,5 +320,5 @@ const testAnswer7 = {
     time: 40
   }
   ],
-  livesLeft: 3
+  remainingNotes: 3
 };
