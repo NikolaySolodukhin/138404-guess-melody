@@ -8,7 +8,7 @@ const checkArrayHasElement = (array, element) => {
 };
 
 // Добавляем ответ к остальным ответам игрока
-const addPlayerAnswer = (state, currentPlayer, answerBoolean) => {
+const addPlayerAnswer = (state, currentPlayer, answerBoolean, answerTime) => {
 
   // Если ответ неправильный, увеличиваем количество ошибок
   if (!answerBoolean) {
@@ -17,11 +17,11 @@ const addPlayerAnswer = (state, currentPlayer, answerBoolean) => {
 
   currentPlayer.answers.push({
     correct: answerBoolean,
-    time: 35
+    time: answerTime
   });
 };
 
-const testAnswer = (state, question, answer, currentPlayer) => {
+const testAnswer = (state, question, answer, answerTime, currentPlayer) => {
   let answerBoolean;
 
   // Проверка ответа для игрового экрана с выбором исполнителя
@@ -30,7 +30,7 @@ const testAnswer = (state, question, answer, currentPlayer) => {
     // Узнаем правильный ответ или нет
     answerBoolean = answer === question.correctAnswer;
 
-    addPlayerAnswer(state, currentPlayer, answerBoolean);
+    addPlayerAnswer(state, currentPlayer, answerBoolean, answerTime);
 
     return;
   }
@@ -41,7 +41,7 @@ const testAnswer = (state, question, answer, currentPlayer) => {
     // Узнаем правильный ответ или нет
     answerBoolean = answer.every((answerItem) => checkArrayHasElement(question.correctAnswer, answerItem));
 
-    addPlayerAnswer(state, currentPlayer, answerBoolean);
+    addPlayerAnswer(state, currentPlayer, answerBoolean, answerTime);
   }
 };
 
