@@ -1,13 +1,15 @@
-const getTimer = (seconds) => {
-  if (seconds === 0) {
-    return `time expired`;
+class GetTimer {
+  constructor(seconds) {
+    this.seconds = seconds;
   }
-  return {
-    value: seconds,
-    tick() {
-      return this.value - 1;
-    }
-  };
-};
 
-export default getTimer;
+  tick() {
+    if (this.seconds <= 0) {
+      return -1;
+    }
+
+    return --this.seconds;
+  }
+}
+
+export default GetTimer;
