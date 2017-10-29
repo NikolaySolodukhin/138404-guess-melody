@@ -1,5 +1,4 @@
 import {initialState} from './data/game-play.js';
-import showScreen from './templates/show-screen.js';
-import getScreenWelcome from './screens/welcome.js';
+import Application from './screens/application.js';
 
-showScreen(getScreenWelcome(initialState));
+Application.initWelcome(initialState);
