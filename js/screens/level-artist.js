@@ -1,29 +1,34 @@
 import testAnswer from '../data/test-answer.js';
+import showScreen from '../templates/show-screen.js';
 import gameControl from '../game-control.js';
 import LevelArtistView from './level-artist-view.js';
 
-const getScreenLevelArtist = (state, question, currentPlayer) => {
-  const screenLevelArtist = new LevelArtistView(state.mistakes, question);
 
-  let answerTimerValue = 0;
+class LevelArtist {
+  constructor(state, question, currentPlayer) {
+    this.state = state;
+    this.question = question;
+    this.currentPlayer = currentPlayer;
+    this.view = new LevelArtistView(this.state.mistakes, this.question);
+    this.answerTimerValue = 0;
+    this.answerTimer = null;
 
-  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+    this.view.sendAnswer = (answer) => {
+      clearInterval(this.answerTimer);
+      testAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
+      gameControl(this.state);
+    };
+  }
 
-  state.timer.onTick = (seconds) => {
-    screenLevelArtist.updateTime(seconds, state);
-  };
+  init() {
+    this.answerTimer = setInterval(() => this.answerTimerValue, 1000);
 
-  screenLevelArtist.onAnswersListClick = (evt) => {
-    if (evt.target.closest(`.js-main-answer-r`)) {
-      const answer = evt.target.closest(`.js-main-answer-r`).value;
+    this.state.timer.onTick = (seconds) => {
+      this.view.updateTime(seconds, this.state);
+    };
 
-      clearInterval(answerTimer);
-      testAnswer(state, question, answer, answerTimerValue, currentPlayer);
-      gameControl(state);
-    }
-  };
+    showScreen(this.view.element);
+  }
+}
 
-  return screenLevelArtist.element;
-};
-
-export default getScreenLevelArtist;
+export default LevelArtist;

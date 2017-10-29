@@ -1,26 +1,31 @@
 import testAnswer from '../data/test-answer.js';
+import showScreen from '../templates/show-screen.js';
 import gameControl from '../game-control.js';
 import LevelGenreView from './level-genre-view.js';
 
-const getScreenLevelGenre = (state, question, currentPlayer) => {
-  const screenLevelGenre = new LevelGenreView(state.mistakes, question);
+class LevelGenre {
+  constructor(state, question, currentPlayer) {
+    this.state = state;
+    this.question = question;
+    this.currentPlayer = currentPlayer;
+    this.view = new LevelGenreView(this.state.mistakes, this.question);
+    this.answerTimerValue = 0;
+    this.answerTimer = null;
 
-  let answerTimerValue = 0;
+    this.view.onSendAnswer = (answer) => {
+      clearInterval(this.answerTimer);
+      testAnswer(this.state, this.question, answer, this.answerTimerValue, this.currentPlayer);
+      gameControl(this.state);
+    };
+  }
 
-  const answerTimer = setInterval(() => answerTimerValue++, 1000);
+  init() {
+    this.answerTimer = setInterval(() => this.answerTimerValue, 1000);
+    this.state.timer.onTick = (seconds) => {
+      this.view.updateTime(seconds, this.state);
+    };
+    showScreen(this.view.element);
+  }
+}
 
-  state.timer.onTick = (seconds) => {
-    screenLevelGenre.updateTime(seconds, state);
-  };
-
-
-  screenLevelGenre.onSendAnswer = (answer) => {
-    clearInterval(answerTimer);
-    testAnswer(state, question, answer, answerTimerValue, currentPlayer);
-    gameControl(state);
-  };
-
-  return screenLevelGenre.element;
-};
-
-export default getScreenLevelGenre;
+export default LevelGenre;

@@ -1,20 +1,16 @@
 import {GameSettings, questions, currentPlayer, playersStats, QuestionTypes} from './data/game-play.js';
-import showScreen from './templates/show-screen.js';
 import initReplay from './screens/replay.js';
-import getScreenLevelArtist from './screens/level-artist.js';
-import getScreenLevelGenre from './screens/level-genre.js';
-import getScreenResultWin from './screens/result/win-result.js';
-import getScreenFailResult from './screens/result/fail-result.js';
+import Application from './screens/application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
 const checkQuestionType = (state, question, player) => {
   if (question.type === QuestionTypes.QUESTION_ARTIST) {
-    showScreen(getScreenLevelArtist(state, question, player));
+    Application.initLevelArtist(state, question, player);
     return;
   }
 
   if (question.type === QuestionTypes.QUESTION_GENRE) {
-    showScreen(getScreenLevelGenre(state, question, player));
+    Application.initLevelGenre(state, question, player);
   }
 };
 
@@ -22,7 +18,7 @@ const gameControl = (state) => {
 
   // Если игрок совершил максимально возможное количество ошибок
   if (state.mistakes > GameSettings.MAX_COUNT_MISTAKES) {
-    showScreen(getScreenFailResult(state));
+    Application.initFailResult(state);
     initReplay();
     return;
   }
@@ -36,7 +32,7 @@ const gameControl = (state) => {
 
   // Если игрок прошел все уровни
   if (state.level === GameSettings.MAX_COUNT_LEVELS) {
-    showScreen(getScreenResultWin(GameSettings.MAX_QUICK_ANSWER_TIME, state.mistakes, currentPlayer, playersStats));
+    Application.initWinResult(GameSettings.MAX_QUICK_ANSWER_TIME, state.mistakes, currentPlayer, playersStats);
     initReplay();
   }
 };

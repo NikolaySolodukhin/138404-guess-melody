@@ -46,16 +46,16 @@ class LevelArtistView extends AbstractView {
     const playButton = this._element.querySelector(`.js-song-play`);
     const answersList = this._element.querySelector(`.js-main-list`);
 
-    playButton.addEventListener(`click`, () => this.onPlayButtonClick(playButton));
+    playButton.addEventListener(`click`, () => this._playButtonClick(playButton));
 
-    answersList.addEventListener(`click`, this.onAnswersListClick);
+    answersList.addEventListener(`click`, (evt) => this._answersListClick(evt));
   }
 
   updateTime(seconds, state) {
     this.timerView.updateTime(seconds, state);
   }
 
-  onPlayButtonClick(playButton) {
+  _playButtonClick(playButton) {
     playButton.classList.toggle(`player-control--pause`);
 
     if (playButton.classList.contains(`player-control--pause`)) {
@@ -66,7 +66,15 @@ class LevelArtistView extends AbstractView {
     playButton.previousElementSibling.pause();
   }
 
-  onAnswersListClick() {}
+  _answersListClick(evt) {
+    if (evt.target.closest(`.js-main-answer-r`)) {
+      const answer = evt.target.closest(`.js-main-answer-r`).value;
+
+      this.sendAnswer(answer);
+    }
+  }
+
+  sendAnswer() {}
 }
 
 export default LevelArtistView;
