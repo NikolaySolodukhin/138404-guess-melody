@@ -1,16 +1,18 @@
-import {GameSettings} from './data/game-play.js';
+import {GameSettings, initialState} from './data/game-play.js';
 import convertSecondsToMinutes from './convert-sec-to-minutes.js';
-import showScreen from './templates/show-screen.js';
-import initReplay from './screens/replay.js';
-import getScreenFailResult from './screens/result/fail-result.js';
+import ResultFail from './screens/result/fail-result.js';
+import getCircumferenceSetValue from './get-circumference-value.js';
+
+const RADIUS = 370;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 class TimerView {
   get template() {
     return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
                <circle
-                 cx="390" cy="390" r="370"
-                 class="timer-line"
-                 style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center">
+                 cx="390" cy="390" r="${RADIUS}"
+                 class="timer-line timer-line-js"
+                 style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center; stroke-dasharray: ${CIRCUMFERENCE}; stroke-dashoffset: ${initialState.timerStrokeDashoffset}">
                </circle>
 
                <div class="timer-value js-timer-value" xmlns="http://www.w3.org/1999/xhtml">
@@ -24,15 +26,18 @@ class TimerView {
   updateTime(seconds, state) {
     const newTime = convertSecondsToMinutes(seconds);
 
-    document.querySelector(`.js-timer-value-mins`).innerText = newTime.minutes;
-    document.querySelector(`.js-timer-value-secs`).innerText = newTime.seconds;
+    initialState.timerStrokeDashoffset = getCircumferenceSetValue(CIRCUMFERENCE, GameSettings.MAX_GAME_TIME, seconds);
+    const timer = document.querySelector(`.timer`);
+    const timerValue = timer.parentNode.querySelector(`.js-timer-value`);
+    timer.querySelector(`.timer-line-js`).style.strokeDashoffset = initialState.timerStrokeDashoffset;
+    timerValue.querySelector(`.js-timer-value-mins`).innerText = newTime.minutes;
+    timerValue.querySelector(`.js-timer-value-secs`).innerText = newTime.seconds;
 
     if (seconds <= GameSettings.MIN_TIMER_DANGER_ZONE) {
-      document.querySelector(`.js-timer-value`).classList.add(`timer-value--time-danger`);
+      timerValue.classList.add(`timer-value--time-danger`);
     }
-    if (seconds === 0) {
-      showScreen(getScreenFailResult(state));
-      initReplay();
+    if (seconds === GameSettings.TIME_END) {
+      new ResultFail(state).init();
     }
   }
 }

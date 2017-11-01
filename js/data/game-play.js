@@ -7,7 +7,8 @@ const GameSettings = {
   MAX_COUNT_NOTES: 3,
   MAX_COUNT_MISTAKES: 3,
   MAX_COUNT_ANSWERS: 10,
-  MAX_COUNT_LEVELS: 10
+  MAX_COUNT_LEVELS: 10,
+  TIME_END: 0
 };
 
 const QuestionTypes = {
@@ -24,16 +25,14 @@ const GameWords = {
 };
 
 const initialState = {
+  time: GameSettings.MAX_GAME_TIME,
+  timerStrokeDashoffset: 0,
   timer: null,
   mistakes: 0,
   level: 0,
-  get time() {
-    if (this.timer === null) {
-      return GameSettings.MAX_GAME_TIME;
-    }
-    return this.timer.value;
-  },
   resetToDefault() {
+    this.time = GameSettings.MAX_GAME_TIME;
+    this.timerStrokeDashoffset = 0;
     this.timer = null;
     this.mistakes = 0;
     this.level = 0;
@@ -109,17 +108,8 @@ const questions = [
 ];
 
 const currentPlayer = {
-  score: 0,
-  remainingTime: initialState.time,
-  remainingNotes: GameSettings.MAX_COUNT_NOTES - initialState.mistakes,
   answers: [],
-  get spentTime() {
-    return GameSettings.MAX_GAME_TIME - initialState.time;
-  },
   resetToDefault() {
-    this.score = 0;
-    this.remainingTime = initialState.time;
-    this.remainingNotes = GameSettings.MAX_COUNT_NOTES - initialState.mistakes;
     this.answers = [];
   }
 };
