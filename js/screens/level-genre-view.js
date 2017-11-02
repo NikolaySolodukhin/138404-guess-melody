@@ -8,10 +8,10 @@ const getTitleTemplate = (text) => {
   return `<h2 class="title">${text}</h2>`;
 };
 
-const getGenreAnswerTemplate = (answerNumber, songName, questionType, songSrc) => {
+const getGenreAnswerTemplate = (answerNumber, questionType, songSrc) => {
   return `<div class="genre-answer">
              ${getPlayerWrapperTemplate(questionType, songSrc)}
-             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songName}" id="a-${answerNumber}">
+             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songSrc}" id="a-${answerNumber}">
              <label class="genre-answer-check" for="a-${answerNumber}"></label>
            </div>`;
 };
@@ -23,7 +23,7 @@ const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) =>
              <div class="main-wrap">
                ${getTitleTemplate(question.title)}
                 <form class="genre js-genre">
-                 ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, answer.name, question.type, answer.src), ``)}
+                 ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer), ``)}
                  ${answerSendButtonTemplate}
                 </form>
              </div>
@@ -31,11 +31,11 @@ const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) =>
 };
 
 class LevelGenreView extends AbstractView {
-  constructor(mistakesNumber, question) {
+  constructor(time, mistakesNumber, question) {
     super();
     this.mistakesNumber = mistakesNumber;
     this.question = question;
-    this.timerView = new TimerView();
+    this.timerView = new TimerView(time);
   }
 
   get template() {
