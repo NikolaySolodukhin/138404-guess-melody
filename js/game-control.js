@@ -1,4 +1,4 @@
-import {GameSettings, questions, currentPlayer, playersStats, QuestionTypes} from './data/game-play.js';
+import {GameSettings, questionsArray, currentPlayer, playersStats, QuestionTypes} from './data/game-play.js';
 import getPlayerScore from './count-score.js';
 import getPlayerResult from './game-play-result.js';
 import Application from './screens/application.js';
@@ -43,7 +43,7 @@ const gameControl = (state) => {
 
   // Если игрок в процессе игры
   if (state.level < GameSettings.MAX_COUNT_LEVELS) {
-    checkQuestionType(state, questions[state.level]);
+    checkQuestionType(state, questionsArray[state.level]);
     return;
   }
 

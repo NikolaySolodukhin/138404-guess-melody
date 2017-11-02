@@ -1,3 +1,6 @@
+import Loader from '../data/data-loader.js';
+import questions from '../data/questions.js';
+import {allDataQuestions} from '../data/game-play.js';
 import TimerGame from '../data/timer-game.js';
 import Welcome from './welcome.js';
 import LevelArtist from './level-artist.js';
@@ -30,8 +33,17 @@ const loadState = (dataString) => {
   return JSON.parse(dataString);
 };
 
+const testTimerGame = (state) => {
+  if (state.level === 0) {
+    state.timer = new TimerGame(state.time);
+    state.timer.start();
+  }
+};
+
 class Application {
-  static init() {
+  static init(loadedData) {
+    allDataQuestions(loadedData);
+
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -55,16 +67,12 @@ class Application {
   }
 
   static initLevelArtist(state) {
-    if (state.level === 0) {
-      state.timer = new TimerGame(state.time);
-      state.timer.start();
-    }
-    location.hash = `${ControllerId.LEVEL_ARTIST}?${saveState(state)}`;
+    testTimerGame(state);
     new LevelArtist(state).init();
   }
 
   static initLevelGenre(state) {
-    location.hash = `${ControllerId.LEVEL_GENRE}?${saveState(state)}`;
+    testTimerGame(state);
     new LevelGenre(state).init();
   }
 
@@ -79,6 +87,9 @@ class Application {
   }
 }
 
-Application.init();
+Loader.loadData().
+    then((loadedData) => questions(loadedData)).
+    then((adaptedLoadedData) => Application.init(adaptedLoadedData)).
+    catch(Loader.onError);
 
 export default Application;
