@@ -78,7 +78,9 @@ class Application {
 
   static initWinResult(state) {
     state.timer.stop();
-    location.hash = `${ControllerId.RESULT_WIN}?${saveState(state)}`;
+    Loader.saveResults(state).then(() => {
+      location.hash = `${ControllerId.RESULT_WIN}?${saveState(null)}`;
+    });
   }
 
   static initFailResult(state) {

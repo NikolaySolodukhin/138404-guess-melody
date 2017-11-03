@@ -14,6 +14,7 @@ const imagemin = require('gulp-imagemin');
 const rollup = require('gulp-better-rollup');
 const sourcemaps = require('gulp-sourcemaps');
 const mocha = require('gulp-mocha');
+const flexbugsFixes = require('postcss-flexbugs-fixes');
 
 gulp.task('style', function () {
   return gulp.src('sass/style.scss')
@@ -29,6 +30,7 @@ gulp.task('style', function () {
           'last 2 Edge versions'
         ]
       }),
+      flexbugsFixes(),
       mqpacker({sort: true})
     ]))
     .pipe(gulp.dest('build/css'))

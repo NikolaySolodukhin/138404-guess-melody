@@ -1,4 +1,5 @@
 const SERVER_URL = `https://es.dump.academy/guess-melody`;
+const UNKNOWN_USERNAME = `unknown-racсoon`;
 
 class Loader {
   static loadData() {
@@ -6,9 +7,31 @@ class Loader {
       if (response.ok) {
         return response.json();
       } else {
-        throw new Error(`Неизвестный статус (${response.status}) ${response.statusText}`);
+        throw new Error(`Что-то пошло не так (${response.status}) ${response.statusText}`);
       }
     });
+  }
+
+  static loadResults(username = UNKNOWN_USERNAME) {
+    return fetch(`${SERVER_URL}/stats/${username}`).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`Что-то пошло не так (${response.status}) ${response.statusText}`);
+      }
+    });
+  }
+
+  static saveResults(data, username = UNKNOWN_USERNAME) {
+    const requestSettings = {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': `application/json`
+      },
+      method: `POST`
+    };
+
+    return fetch(`${SERVER_URL}/stats/${username}`, requestSettings);
   }
 
   static onError(message) {
