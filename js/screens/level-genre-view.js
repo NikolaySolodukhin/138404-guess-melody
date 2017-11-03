@@ -48,18 +48,18 @@ class LevelGenreView extends AbstractView {
     const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
-    genreForm.addEventListener(`click`, (evt) => this.onGenreFormClick(evt, genrePlayButtons));
+    genreForm.addEventListener(`click`, (evt) => this._onGenreFormClick(evt, genrePlayButtons));
 
-    genreForm.addEventListener(`change`, (evt) => this.onGenreFormChange(evt, genreAnswersInputs, sendButton));
+    genreForm.addEventListener(`change`, (evt) => this._onGenreFormChange(evt, genreAnswersInputs, sendButton));
 
-    sendButton.addEventListener(`click`, (evt) => this.onSendButtonClick(evt, genreForm));
+    sendButton.addEventListener(`click`, (evt) => this._onSendButtonClick(evt, genreForm));
   }
 
   updateTime(seconds, state) {
     this.timerView.updateTime(seconds, state);
   }
 
-  onGenreFormClick(evt, playButtons) {
+  _onGenreFormClick(evt, playButtons) {
     if (evt.target.closest(`.js-song-play`)) {
       const currentPlayButton = evt.target;
       const otherPlayButtons = playButtons.slice().filter((playButton) => playButton !== currentPlayButton);
@@ -82,13 +82,13 @@ class LevelGenreView extends AbstractView {
     }
   }
 
-  onGenreFormChange(evt, checkboxes, button) {
+  _onGenreFormChange(evt, checkboxes, button) {
     if (evt.target.closest(`.js-genre-answer-input`)) {
       button.disabled = !checkboxes.some((checkbox) => checkbox.checked);
     }
   }
 
-  onSendButtonClick(evt, form) {
+  _onSendButtonClick(evt, form) {
     const genreAnswersCheckedInputs = Array.from(form.querySelectorAll(`.js-genre-answer-input:checked`));
     const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
 
