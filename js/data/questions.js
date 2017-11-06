@@ -1,70 +1,15 @@
 import {QuestionTypes} from './game-play.js';
-
-const getAnswerList = (loadedQuestion) => {
-  if (loadedQuestion.type === QuestionTypes.QUESTION_ARTIST) {
-    return loadedQuestion.answers.map((answer) => {
-      return {
-        artist: answer.title,
-        image: answer.image.url
-      };
-    });
-  }
-
-  return loadedQuestion.answers.map((answer) => answer.src);
-};
-
-const getArtistCorrectAnswer = (answers) => {
-  return answers.reduce((correctAnswer, answer) => {
-    if (answer.isCorrect) {
-      return correctAnswer + answer.title;
-    }
-
-    return correctAnswer;
-  }, ``);
-};
-
-const getGenreCorrectAnswer = (answers, genre) => {
-  return answers.reduce((correctAnswer, answer) => {
-    if (answer.genre === genre) {
-      return correctAnswer.concat(answer.src);
-    }
-
-    return correctAnswer;
-  }, []);
-};
-
-const createArtistQuestion = (loadedQuestion) => {
-  return {
-    type: loadedQuestion.type,
-    title: loadedQuestion.question,
-    songSrc: loadedQuestion.src,
-    answerList: getAnswerList(loadedQuestion),
-    correctAnswer: getArtistCorrectAnswer(loadedQuestion.answers)
-  };
-};
-
-const createGenreQuestion = (loadedQuestion) => {
-  return {
-    type: loadedQuestion.type,
-    title: loadedQuestion.question,
-    answerList: getAnswerList(loadedQuestion),
-    correctAnswer: getGenreCorrectAnswer(loadedQuestion.answers, loadedQuestion.genre)
-  };
-};
+import ArtistQuestion from './artist-question.js';
+import GenreQuestion from './genre-question.js';
 
 const questions = (loadedData) => {
-  const arrayQuestions = [];
-
-  loadedData.forEach((loadedQuestion) => {
+  return loadedData.map((loadedQuestion) => {
     if (loadedQuestion.type === QuestionTypes.QUESTION_ARTIST) {
-      arrayQuestions.push(createArtistQuestion(loadedQuestion));
-      return;
+      return new ArtistQuestion(loadedQuestion);
     }
 
-    arrayQuestions.push(createGenreQuestion(loadedQuestion));
+    return new GenreQuestion(loadedQuestion);
   });
-
-  return arrayQuestions;
 };
 
 export default questions;

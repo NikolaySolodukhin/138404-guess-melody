@@ -1,10 +1,9 @@
-import {GameSettings, questionsArray, currentPlayer, playersStats, QuestionTypes} from './data/game-play.js';
+import {GameSettings, QuestionTypes} from './data/game-play.js';
 import getPlayerScore from './count-score.js';
-import getPlayerResult from './game-play-result.js';
 import Application from './screens/application.js';
 
 // В зависимости от типа вопроса показываем один из двух типов игровых экранов
-const checkQuestionType = (state, question) => {
+const showLevel = (state, question) => {
   if (question.type === QuestionTypes.QUESTION_ARTIST) {
     Application.initLevelArtist(state);
     return;
@@ -16,21 +15,17 @@ const checkQuestionType = (state, question) => {
 };
 
 const drawFinalState = (state) => {
-  const finalState = {
-    timer: state.timer,
-    mistakes: state.mistakes,
-    currentPlayer: {
-      remainingTime: state.time,
-      remainingNotes: GameSettings.MAX_COUNT_NOTES - state.mistakes,
-      numberQuickAnswers: currentPlayer.answers.filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME).length
-    }
-  };
+  const numberQuickAnswers = state.currentPlayer.answers
+      .filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME)
+      .length;
 
-  finalState.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - finalState.currentPlayer.remainingTime;
-  finalState.currentPlayer.score = getPlayerScore(currentPlayer.answers, finalState.currentPlayer.remainingNotes);
-  finalState.currentPlayer.result = getPlayerResult(playersStats, finalState.currentPlayer);
+  state.currentPlayer.remainingTime = state.time;
+  state.currentPlayer.remainingNotes = GameSettings.MAX_COUNT_NOTES - state.mistakes;
+  state.currentPlayer.numberQuickAnswers = numberQuickAnswers;
+  state.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - state.currentPlayer.remainingTime;
+  state.currentPlayer.score = getPlayerScore(state.currentPlayer.answers, state.currentPlayer.remainingNotes);
 
-  return finalState;
+  return state;
 };
 
 const gameControl = (state) => {
@@ -43,7 +38,7 @@ const gameControl = (state) => {
 
   // Если игрок в процессе игры
   if (state.level < GameSettings.MAX_COUNT_LEVELS) {
-    checkQuestionType(state, questionsArray[state.level]);
+    showLevel(state, Application.getLevelQuestion(state.level));
     return;
   }
 

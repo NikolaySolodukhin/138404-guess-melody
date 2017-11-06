@@ -4,14 +4,14 @@ const countScore = (answers) => {
   return answers.reduce((playerScore, answer) => {
 
     if (!answer.correct) {
-      return playerScore - 2;
+      return playerScore - GameSettings.QUICK_ANSWER_POINT;
     }
 
     if (answer.time <= GameSettings.MAX_QUICK_ANSWER_TIME) {
-      return playerScore + 2;
+      return playerScore + GameSettings.QUICK_ANSWER_POINT;
     }
 
-    return playerScore + 1;
+    return playerScore + GameSettings.SLOW_ANSWER_POINT;
   }, 0);
 };
 

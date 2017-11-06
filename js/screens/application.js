@@ -1,12 +1,12 @@
 import Loader from '../data/data-loader.js';
+import {QuestionTypes} from '../data/game-play.js';
 import questions from '../data/questions.js';
-import {allDataQuestions} from '../data/game-play.js';
 import TimerGame from '../data/timer-game.js';
-import Welcome from './welcome.js';
-import LevelArtist from './level-artist.js';
-import LevelGenre from './level-genre.js';
-import ResultWin from './result/win-result.js';
-import ResultFail from './result/fail-result.js';
+import Welcome from './welcome/welcome.js';
+import LevelArtist from './level-artist/level-artist.js';
+import LevelGenre from './level-genre/level-genre.js';
+import ResultWin from './result/win-result/win-result.js';
+import ResultFail from './result/fail-result/fail-result.js';
 
 
 const ControllerId = {
@@ -25,6 +25,8 @@ const routes = {
   [ControllerId.RESULT_FAIL]: ResultFail
 };
 
+let questionsArray;
+
 const saveState = (state) => {
   return JSON.stringify(state);
 };
@@ -40,10 +42,39 @@ const testTimerGame = (state) => {
   }
 };
 
-class Application {
-  static init(loadedData) {
-    allDataQuestions(loadedData);
+const getSource = async (src) => {
+  const response = await fetch(src);
 
+  return await URL.createObjectURL(await response.blob());
+};
+
+const preloadQuestionSongs = async (question) => {
+  if (question.type === QuestionTypes.QUESTION_ARTIST) {
+    question.song.url = await getSource(question.song.src);
+
+    return;
+  }
+
+  question.answerList.forEach(async (answer) => {
+    answer.url = await getSource(answer.src);
+  });
+};
+
+class Application {
+
+  static async init(state) {
+    try {
+      const loadedData = await this.loadData();
+
+      this.addHashListener();
+      await this.start(state, loadedData);
+
+    } catch (e) {
+      Loader.onError(e.message);
+    }
+  }
+
+  static addHashListener() {
     const onHashChange = () => {
       const hashValue = location.hash.replace(`#`, ``);
       const [id, data] = hashValue.split(`?`);
@@ -59,7 +90,37 @@ class Application {
 
     if (Controller) {
       new Controller(loadState(data)).init();
+    } else {
+      this.initWelcome();
     }
+  }
+
+  static async loadData() {
+    const loadedData = await Loader.loadData();
+
+    return questions(loadedData);
+  }
+
+  static async preloadAllSongs(gameQuestions) {
+    const promises = [];
+
+    gameQuestions.forEach((gameQuestion) => {
+      promises.push(preloadQuestionSongs(gameQuestion));
+    });
+
+    await Promise.all(promises);
+  }
+
+  static getLevelQuestion(levelNumber) {
+    return questionsArray[levelNumber];
+  }
+
+  static async start(state, loadedData) {
+    questionsArray = loadedData;
+
+    this.initWelcome(state);
+    await this.preloadAllSongs(questionsArray);
+    document.querySelector(`.js-main-start`).disabled = false;
   }
 
   static initWelcome(state) {
@@ -76,11 +137,10 @@ class Application {
     new LevelGenre(state).init();
   }
 
-  static initWinResult(state) {
+  static async initWinResult(state) {
     state.timer.stop();
-    Loader.saveResults(state).then(() => {
-      location.hash = `${ControllerId.RESULT_WIN}?${saveState(null)}`;
-    });
+    await Loader.saveResults(state);
+    location.hash = `${ControllerId.RESULT_WIN}?${saveState(null)}`;
   }
 
   static initFailResult(state) {
@@ -89,9 +149,5 @@ class Application {
   }
 }
 
-Loader.loadData().
-    then((loadedData) => questions(loadedData)).
-    then((adaptedLoadedData) => Application.init(adaptedLoadedData)).
-    catch(Loader.onError);
 
 export default Application;

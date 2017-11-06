@@ -1,6 +1,6 @@
-import AbstractView from '../abstract-view.js';
-import TimerView from '../timer-view.js';
-import {getMistakeTemplate, getPlayerWrapperTemplate} from '../templates/blocks.js';
+import AbstractView from '../../abstract-view.js';
+import TimerView from '../../timer-view.js';
+import {getMistakeTemplate, getPlayerWrapperTemplate} from '../../templates/blocks.js';
 
 const getTitleTemplate = (text) => {
   return `<h2 class="title main-title">${text}</h2>`;
@@ -17,15 +17,16 @@ const getAnswerWrapperTemplate = (answerNumber, artistName, artistImage) => {
 };
 
 const getScreenLevelArtistTemplate = (timerTemplate, mistakesNumber, question) => {
+  const answersTemplate = question.answerList
+      .map((answer, answerIndex) => getAnswerWrapperTemplate(answerIndex++, answer.artist, answer.image))
+      .join(``);
   return `<section class="main main--level main--level-artist js-main">
              ${timerTemplate}
              ${getMistakeTemplate(mistakesNumber)}
              <div class="main-wrap">
                ${getTitleTemplate(question.title)}
-               ${getPlayerWrapperTemplate(question.type, question.songSrc)}
-               <form class="main-list js-main-list">
-                 ${question.answerList.reduce((answers, answer, answerIndex) => answers + getAnswerWrapperTemplate(answerIndex + 1, answer.artist, answer.image), ``)}
-               </form>
+              ${getPlayerWrapperTemplate(question.type, question.song.url)}
+              <form class="main-list js-main-list">${answersTemplate}</form>
              </div>
            </section>`;
 };

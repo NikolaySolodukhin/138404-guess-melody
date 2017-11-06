@@ -1,10 +1,12 @@
 import GetTimer from '../get-timer.js';
+import {GameSettings} from './game-play.js';
 
+const oneSecondInterval = 1000;
 class TimerGame {
   constructor(seconds) {
-    this.timer = new GetTimer(seconds);
-    this.timerInterval = null;
-    this.seconds = seconds;
+    this._timer = new GetTimer(seconds);
+    this._timerInterval = null;
+    this._seconds = seconds;
   }
 
   get value() {
@@ -12,19 +14,19 @@ class TimerGame {
   }
 
   start() {
-    this.timerInterval = setInterval(() => {
-      this.seconds = this.timer.tick();
+    this._timerInterval = setInterval(() => {
+      this._seconds = this._timer.tick();
 
-      if (this.seconds === 0) {
+      if (this._seconds === GameSettings.TIME_END) {
         this.stop();
       }
 
-      this.onTick(this.seconds);
-    }, 1000);
+      this.onTick(this._seconds);
+    }, oneSecondInterval);
   }
 
   stop() {
-    clearInterval(this.timerInterval);
+    clearInterval(this._timerInterval);
   }
 
   onTick() {}

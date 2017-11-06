@@ -1,5 +1,5 @@
-import showScreen from '../../templates/show-screen.js';
-import initReplay from '../replay.js';
+import showScreen from '../../../templates/show-screen.js';
+import initReplay from '../../replay.js';
 import FailResultView from './fail-result-view.js';
 
 class ResultFail {
@@ -10,7 +10,7 @@ class ResultFail {
 
   init() {
     showScreen(this.view.element);
-    initReplay();
+    initReplay(this.view.getReplay());
   }
 }
 
