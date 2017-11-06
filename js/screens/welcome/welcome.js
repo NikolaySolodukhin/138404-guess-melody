@@ -1,5 +1,5 @@
-import showScreen from '../templates/show-screen.js';
-import gameControl from '../game-control.js';
+import showScreen from '../../templates/show-screen.js';
+import gameControl from '../../game-control.js';
 import WelcomeView from './welcome-view.js';
 
 class Welcome {

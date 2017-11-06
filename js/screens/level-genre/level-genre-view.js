@@ -1,6 +1,6 @@
-import AbstractView from '../abstract-view.js';
-import TimerView from '../timer-view.js';
-import {getMistakeTemplate, getPlayerWrapperTemplate} from '../templates/blocks.js';
+import AbstractView from '../../abstract-view.js';
+import TimerView from '../../timer-view.js';
+import {getMistakeTemplate, getPlayerWrapperTemplate} from '../../templates/blocks.js';
 
 const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
 
@@ -8,22 +8,25 @@ const getTitleTemplate = (text) => {
   return `<h2 class="title">${text}</h2>`;
 };
 
-const getGenreAnswerTemplate = (answerNumber, questionType, songSrc) => {
+const getGenreAnswerTemplate = (answerNumber, questionType, song) => {
   return `<div class="genre-answer">
-             ${getPlayerWrapperTemplate(questionType, songSrc)}
-             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${songSrc}" id="a-${answerNumber}">
+             ${getPlayerWrapperTemplate(questionType, song.url)}
+             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${song.src}" id="a-${answerNumber}">
              <label class="genre-answer-check" for="a-${answerNumber}"></label>
            </div>`;
 };
 
 const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
+  const answersTemplate = question.answerList
+      .map((answer, answerIndex) => getGenreAnswerTemplate(answerIndex++, question.type, answer))
+      .join(``);
   return `<section class="main main--level main--level-genre js-main">
              ${timerTemplate}
              ${getMistakeTemplate(mistakesNumber)}
              <div class="main-wrap">
                ${getTitleTemplate(question.title)}
                 <form class="genre js-genre">
-                 ${question.answerList.reduce((answers, answer, answerIndex) => answers + getGenreAnswerTemplate(answerIndex + 1, question.type, answer), ``)}
+                 ${answersTemplate}
                  ${answerSendButtonTemplate}
                 </form>
              </div>

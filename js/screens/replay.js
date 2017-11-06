@@ -1,13 +1,10 @@
-import {initialState, currentPlayer} from '../data/game-play.js';
+import {GameSettings} from '../data/game-play.js';
+import State from '../data/state.js';
 import gameControl from '../game-control.js';
 
-const initReplay = () => {
-  const replay = document.querySelector(`.js-main-replay`);
-
+const initReplay = (replay) => {
   const onReplay = () => {
-    initialState.resetToDefault();
-    currentPlayer.resetToDefault();
-    gameControl(initialState);
+    gameControl(new State(GameSettings.MAX_GAME_TIME));
   };
 
   replay.addEventListener(`click`, onReplay);

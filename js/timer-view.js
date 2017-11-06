@@ -1,6 +1,6 @@
 import {GameSettings} from './data/game-play.js';
 import convertSecondsToMinutes from './convert-sec-to-minutes.js';
-import ResultFail from './screens/result/fail-result.js';
+import ResultFail from './screens/result/fail-result/fail-result.js';
 import getCircumferenceSetValue from './get-circumference-value.js';
 
 const RADIUS = 370;

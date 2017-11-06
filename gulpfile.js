@@ -15,6 +15,10 @@ const rollup = require('gulp-better-rollup');
 const sourcemaps = require('gulp-sourcemaps');
 const mocha = require('gulp-mocha');
 const flexbugsFixes = require('postcss-flexbugs-fixes');
+const uglify = require('gulp-uglify');
+const resolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const babel = require('rollup-plugin-babel');
 
 gulp.task('style', function () {
   return gulp.src('sass/style.scss')
@@ -31,7 +35,9 @@ gulp.task('style', function () {
         ]
       }),
       flexbugsFixes(),
-      mqpacker({sort: true})
+      mqpacker({
+        sort: true
+      })
     ]))
     .pipe(gulp.dest('build/css'))
     .pipe(server.stream())
@@ -44,14 +50,36 @@ gulp.task('scripts', function () {
   return gulp.src('js/main.js')
     .pipe(plumber())
     .pipe(sourcemaps.init())
-    .pipe(rollup({}, 'iife'))
+    .pipe(rollup({
+      plugins: [
+        resolve({
+          browser: true
+        }),
+        commonjs(),
+        babel({
+          babelrc: false,
+          exclude: 'node_modules/**',
+          presets: [
+            ['env', {
+              modules: false
+            }]
+          ],
+          plugins: [
+            'external-helpers',
+          ]
+        })
+      ]
+    }, 'iife'))
+    .pipe(uglify())
     .pipe(sourcemaps.write(''))
     .pipe(gulp.dest('build/js'));
 });
 
 gulp.task('test', function () {
   return gulp
-    .src(['js/**/*.test.js'], { read: false })
+    .src(['js/**/*.test.js'], {
+      read: false
+    })
     .pipe(mocha({
       ui: 'tdd',
       compilers: ['js:babel-register'],
@@ -62,8 +90,12 @@ gulp.task('test', function () {
 gulp.task('imagemin', ['copy'], function () {
   return gulp.src('build/img/**/*.{jpg,png,gif}')
     .pipe(imagemin([
-      imagemin.optipng({optimizationLevel: 3}),
-      imagemin.jpegtran({progressive: true})
+      imagemin.optipng({
+        optimizationLevel: 3
+      }),
+      imagemin.jpegtran({
+        progressive: true
+      })
     ]))
     .pipe(gulp.dest('build/img'));
 });
@@ -77,9 +109,11 @@ gulp.task('copy-html', function () {
 
 gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
   return gulp.src([
-    'fonts/**/*.{woff,woff2}',
-    'img/*.*'
-  ], {base: '.'})
+      'fonts/**/*.{woff,woff2}',
+      'img/*.*'
+    ], {
+      base: '.'
+    })
     .pipe(gulp.dest('build'));
 });
 

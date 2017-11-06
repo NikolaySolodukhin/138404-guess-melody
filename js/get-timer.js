@@ -1,14 +1,15 @@
+import {GameSettings} from './data/game-play.js';
 class GetTimer {
   constructor(seconds) {
-    this.seconds = seconds;
+    this._seconds = seconds;
   }
 
   tick() {
-    if (this.seconds <= 0) {
+    if (this._seconds <= GameSettings.TIME_END) {
       return -1;
     }
 
-    return --this.seconds;
+    return --this._seconds;
   }
 }
 
