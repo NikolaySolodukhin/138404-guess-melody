@@ -25,8 +25,6 @@ const routes = {
   [ControllerId.RESULT_FAIL]: ResultFail
 };
 
-let questionsArray;
-
 const saveState = (state) => {
   return JSON.stringify(state);
 };
@@ -61,8 +59,8 @@ const preloadQuestionSongs = async (question) => {
 };
 
 class Application {
-
   static async init(state) {
+    Application._questionsArray = [];
     try {
       const loadedData = await this.loadData();
 
@@ -101,25 +99,25 @@ class Application {
     return questions(loadedData);
   }
 
-  static async preloadAllSongs(gameQuestions) {
+  static async preloadAllSongs(questionsAll) {
     const promises = [];
 
-    gameQuestions.forEach((gameQuestion) => {
-      promises.push(preloadQuestionSongs(gameQuestion));
+    questionsAll.forEach((question) => {
+      promises.push(preloadQuestionSongs(question));
     });
 
     await Promise.all(promises);
   }
 
   static getLevelQuestion(levelNumber) {
-    return questionsArray[levelNumber];
+    return Application._questionsArray[levelNumber];
   }
 
   static async start(state, loadedData) {
-    questionsArray = loadedData;
+    Application._questionsArray = loadedData;
 
     this.initWelcome(state);
-    await this.preloadAllSongs(questionsArray);
+    await this.preloadAllSongs(Application._questionsArray);
     document.querySelector(`.js-main-start`).disabled = false;
   }
 
