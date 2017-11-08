@@ -14,12 +14,12 @@ const getPlayerResult = (resultsOtherPlayers, resultCurrentPlayer) => {
 
   // Получаем количество побежденных игроков
   // Дополнительно умножаем на 100, так как выводим полученное число в процентах
-  const defeatedPlayers = Math.trunc(currentPlayerIndex / playersStats.length * 100);
+  const defeatedPlayersPercent = Math.trunc(currentPlayerIndex / playersStats.length * 100);
 
   return {
     playersStats,
     currentPlayerPlace,
-    defeatedPlayers
+    defeatedPlayersPercent
   };
 };
 

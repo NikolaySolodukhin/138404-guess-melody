@@ -26,11 +26,11 @@ const routes = {
 };
 
 const saveState = (state) => {
-  return JSON.stringify(state);
+  return window.btoa(encodeURIComponent(JSON.stringify(state)));
 };
 
 const loadState = (dataString) => {
-  return JSON.parse(dataString);
+  return JSON.parse(decodeURIComponent(window.atob(dataString)));
 };
 
 const testTimerGame = (state) => {
