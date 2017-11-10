@@ -9,16 +9,18 @@ const autoprefixer = require('autoprefixer');
 const server = require('browser-sync').create();
 const mqpacker = require('css-mqpacker');
 const minify = require('gulp-csso');
-const rename = require('gulp-rename');
+const gzip = require('gulp-gzip');
 const imagemin = require('gulp-imagemin');
 const rollup = require('gulp-better-rollup');
 const sourcemaps = require('gulp-sourcemaps');
 const mocha = require('gulp-mocha');
+const htmlmin = require('gulp-html-minifier2');
 const flexbugsFixes = require('postcss-flexbugs-fixes');
 const uglify = require('gulp-uglify');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const babel = require('rollup-plugin-babel');
+const ghPages = require('gulp-gh-pages');
 
 gulp.task('style', function () {
   return gulp.src('sass/style.scss')
@@ -41,8 +43,11 @@ gulp.task('style', function () {
     ]))
     .pipe(gulp.dest('build/css'))
     .pipe(server.stream())
-    .pipe(minify())
-    .pipe(rename('style.min.css'))
+    .pipe(minify({
+      restructure: true,
+      sourceMap: true,
+      debug: true
+    }))
     .pipe(gulp.dest('build/css'));
 });
 
@@ -102,12 +107,18 @@ gulp.task('imagemin', ['copy'], function () {
 
 
 gulp.task('copy-html', function () {
-  return gulp.src('*.{html,ico}')
+  return gulp.src('*.{ico}')
     .pipe(gulp.dest('build'))
     .pipe(server.stream());
 });
 
-gulp.task('copy', ['copy-html', 'scripts', 'style'], function () {
+gulp.task('htmlminify', function() {
+  return gulp.src('*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('copy', ['htmlminify','copy-html', 'scripts', 'style'], function () {
   return gulp.src([
       'fonts/**/*.{woff,woff2}',
       'img/*.*'
@@ -149,3 +160,8 @@ gulp.task('assemble', ['clean'], function () {
 });
 
 gulp.task('build', ['assemble', 'imagemin']);
+
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
+});

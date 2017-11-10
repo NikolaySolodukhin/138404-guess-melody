@@ -2,15 +2,17 @@
   "name": "GuessMelody",
   "version": "3.0.0",
   "private": true,
-  "description": "Личный проект «Угадай мелодию» от HTML Academy",
+  "description": "Личный проект «Угадай мелодию»",
   "scripts": {
     "eslint": "eslint js/",
     "build": "gulp build",
     "start": "gulp serve",
-    "test": "npm run eslint && gulp test"
+    "test": "npm run eslint && gulp test",
+    "deploy": "gulp deploy"
   },
   "devDependencies": {
     "autoprefixer": "7.1.6",
+    "babel-cli": "^6.26.0",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.0",
     "babel-preset-env": "1.6.1",
@@ -24,19 +26,21 @@
     "gulp-better-rollup": "2.0.0",
     "gulp-csso": "3.0.0",
     "gulp-gh-pages": "0.5.4",
+    "gulp-html-minifier2": "^1.1.8",
     "gulp-imagemin": "3.4.0",
     "gulp-mocha": "4.3.1",
     "gulp-plumber": "1.1.0",
     "gulp-postcss": "7.0.0",
-    "gulp-rename": "1.2.2",
     "gulp-sass": "3.1.0",
     "gulp-sourcemaps": "2.6.1",
     "gulp-uglify": "^3.0.0",
     "postcss-flexbugs-fixes": "3.2.0",
+    "postcss-loader": "^2.0.8",
     "pre-commit": "1.2.2",
     "rollup-plugin-babel": "3.0.2",
     "rollup-plugin-commonjs": "8.2.6",
-    "rollup-plugin-node-resolve": "3.0.0"
+    "rollup-plugin-node-resolve": "3.0.0",
+    "webpack": "3.8.1"
   },
   "pre-commit": [
     "test"
