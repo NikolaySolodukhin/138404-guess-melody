@@ -1,0 +1,26 @@
+@import "global/fonts.css";
+@import "common.css";
+@import "player/player.css";
+@import "main/main.css";
+@import "main/--level/main--level.css";
+@import "main/--level/genre.css";
+@import "main/--result/main--result.css";
+@import "main/--welcome/main--welcome.css";
+@import "main/timer.css";
+@import "main/mistake.css";
+@import "main/request-error.css";
+
+
+:root {
+  --color-beige: #f0eed5;
+  --color-orange: #ff9749;
+  --color-text-dark: #230d1a;
+  --color-text-grey: #808080;
+
+  --font: 'Fira Sans', sans-serif;
+
+  --layout-height: 850px;
+  --layout-width: 780px;
+  --preview-size: 134px;
+  --preview-spacing: 11px;
+}

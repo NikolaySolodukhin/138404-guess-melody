@@ -1,5 +1,3 @@
-$preview-size: 134px;
-$preview-spacing: 11px;
 
 .main--level {
   justify-content: flex-start;
@@ -11,10 +9,10 @@ $preview-spacing: 11px;
 }
 
 .main-player {
+  width: 530px;
   height: 55px;
   margin-bottom: 80px;
   overflow: hidden;
-  width: 530px;
 }
 
 .main-list {
@@ -23,28 +21,28 @@ $preview-spacing: 11px;
 }
 
 .main-answer-r {
-  left: -900em;
   position: absolute;
+  left: -900em;
 }
 
 .main-answer {
-  box-sizing: border-box;
-  color: $color-text-dark;
-  cursor: pointer;
+  position: relative;
   display: flex;
   flex-direction: column;
-  font-size: 0.9em;
-  font-weight: 300;
+  box-sizing: border-box;
+  width: var(--preview-size);
   margin: 0 5px;
   padding: 0;
-  position: relative;
+  font-weight: 300;
+  font-size: 0.9em;
   text-align: center;
-  width: $preview-size;
+  color: var(--color-text-dark);
+  cursor: pointer;
 }
 
 .main-answer:hover {
   .main-answer-preview {
-    border-color: $color-orange;
+    border-color: var(--color-orange);
   }
 }
 
@@ -55,14 +53,12 @@ $preview-spacing: 11px;
 }
 
 .main-answer-preview {
-  background: $color-beige;
-  border: solid 5px $color-text-dark;
-  border-radius: $preview-size;
   box-sizing: border-box;
-  height: $preview-size;
-  margin-bottom: $preview-spacing;
+  width: var(--preview-size);
+  height: var(--preview-size);
+  margin-bottom: var(--preview-spacing);
   overflow: hidden;
-  width: $preview-size;
+  background-color: var(--color-beige);
+  border: solid 5px var(--color-text-dark);
+  border-radius: var(--preview-size);
 }
-
-@import "genre";

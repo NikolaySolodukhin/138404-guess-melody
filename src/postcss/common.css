@@ -1,0 +1,60 @@
+/*
+ * Общие переменные.css, стили лейаута, которые применяются
+ * ко всем страницам и стили переиспользуемых элементов
+ */
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  background: #1d121f linear-gradient(90deg, #1d121f, #270a17);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: var(--layout-height);
+  font: 1em var(--font);
+  color: white;
+  background: url("../assets/img/vinyl.png") center no-repeat;
+}
+
+.app {
+  position: relative;
+  width: var(--layout-width);
+  height: var(--layout-height);
+}
+
+.copyright {
+  position: absolute;
+  right: 0;
+  bottom: 2em;
+  font-weight: 300;
+  font-size: 0.9em;
+  color: var(--color-beige);
+  white-space: nowrap;
+}
+
+.copyright-link {
+  color: var(--color-orange);
+}
+
+.copyright-link::before {
+  content: url('../assets/img/ha-logo.png');
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 145px;
+  height: 50px;
+  margin-bottom: 0.5em;
+}
+
+.copyright-link:hover {
+  color: red;
+}

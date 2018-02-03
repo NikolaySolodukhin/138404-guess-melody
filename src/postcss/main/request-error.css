@@ -5,13 +5,14 @@
    z-index: 999;
    width: 100%;
    padding: 5px 10px;
-   background-color: #ff0000;
+   background-color: red;
  }
 
  .request-error__text {
    display: block;
    max-width: 40%;
-   margin: 0 auto;
+   margin-right: auto;
+   margin-left: auto;
    text-align: center;
-   color: #ffffff;
+   color: white;
  }

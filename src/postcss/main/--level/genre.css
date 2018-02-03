@@ -10,8 +10,8 @@
 }
 
 .player-wrapper {
-  height: 55px;
   width: 410px;
+  height: 55px;
 }
 
 .genre-answer input[type=checkbox] {
@@ -20,34 +20,35 @@
 }
 
 .genre-answer-check {
-  background: url("../img/icon-note-inactive.png") no-repeat;
-  height: 49px;
   width: 35px;
+  height: 49px;
+  background-image: url("../../../assets/img/icon-note-inactive.png");
+  background-repeat: no-repeat;
   cursor: pointer;
 }
 
 input[type=checkbox]:checked + .genre-answer-check {
-  background-image: url("../img/icon-note-active.png");
+  background-image: url("../../../assets/img/icon-note-active.png");
 }
 
 .genre-answer-send {
-  background: $color-beige;
-  border: solid 4px $color-orange;
-  border-radius: 20px;
-  color: $color-text-dark;
   display: block;
-  font: italic 300 2em $font;
   margin: 20px auto 0;
   padding: 0 20px;
+  font: italic 300 2em var(--font);
   text-align: center;
+  color: var(--color-text-dark);
+  background-color: var(--color-beige);
+  border: solid 4px var(--color-orange);
+  border-radius: 20px;
   cursor: pointer;
 }
 
 .genre-answer-send:disabled {
-  color: $color-text-grey;
-  border: 4px solid lighten($color-orange, 15%);
+  color: --color-text-grey;
+  border: 4px solid lighten(var(--color-orange), 15%);
 }
 
 .genre-answer-send:hover {
-  color: $color-orange;
+  color: var(--color-orange);
 }

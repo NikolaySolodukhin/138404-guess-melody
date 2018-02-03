@@ -1,20 +1,22 @@
 .player-wrapper {
+  margin-right: 20px;
+  background-image: url("../../assets/img/player-background.png");
+  background-size: 0 100%;
+  background-size: cover;
   animation: fadein 1000ms ease-out;
   animation-iteration-count: 1;
-  background: url("../img/player-background.png") no-repeat 0 100%;
-  background-size: cover;
-  margin-right: 20px;
+  backgroun-repeat: no-repeat;
 }
 
 .player-control {
-  border: 0;
   display: block;
 
   width: 46px;
   height: 52px;
   background-color: transparent;
-  background-image: url("../img/icon-player-controls-sprite.png");
+  background-image: url("../../assets/img/icon-player-controls-sprite.png");
   background-repeat: no-repeat;
+  border: 0;
   cursor: pointer;
 
   &--play {
@@ -29,9 +31,9 @@
 
 @keyframes fadein {
   0% {
-    opacity: 0
+    opacity: 0;
   }
   100% {
-    opacity: 1
+    opacity: 1;
   }
 }

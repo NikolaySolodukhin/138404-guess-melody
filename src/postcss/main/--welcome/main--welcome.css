@@ -5,27 +5,27 @@
 .main--welcome {
   padding-top: 395px;
   .text {
-    text-align: center;
     width: 23em;
+    text-align: center;
   }
 }
 
 .main-play {
+  position: absolute;
   top: 360px;
   left: 330px;
-  background: transparent;
-  border-color: transparent;
-  border-left-color: $color-orange;
-  border-style: solid;
-  border-width: 70px 0 70px 100px;
-  font-size: 0;
+  width: 0;
   height: 0;
   margin-left: 20px;
   padding: 0;
-  position: absolute;
+  font-size: 0;
   text-indent: -100em;
+  background-color: transparent;
+  border-width: 70px 0 70px 100px;
+  border-style: solid;
+  border-color: transparent;
+  border-left-color: var(--color-orange);
   transform-origin: center;
-  width: 0;
 }
 
 .main-play:hover {
@@ -37,7 +37,7 @@
 }
 
 .main-play:disabled {
-  border-left-color: #808080;
+  border-left-color: var(--color-text-grey);
   animation: preload 1000ms ease-in-out infinite alternate;
 }
 
