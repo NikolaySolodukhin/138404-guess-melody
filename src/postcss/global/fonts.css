@@ -7,6 +7,7 @@
     local('FiraSans-LightItalic'),
     url("../../assets/fonts/FiraSans-LightItalic.woff2") format('woff2'),
     url("../../assets/fonts/FiraSans-LightItalic.woff") format('woff');
+  font-display: swap;
 }
 
 @font-face {
@@ -18,6 +19,7 @@
     local('FiraSans-MediumItalic'),
     url("../../assets/fonts/FiraSans-MediumItalic.woff2") format('woff2'),
     url("../../assets/fonts/FiraSans-MediumItalic.woff") format('woff');
+  font-display: swap;
 }
 
 @font-face {
@@ -29,6 +31,7 @@
     local('FiraSans-BoldItalic'),
     url("../../assets/fonts/FiraSans-BoldItalic.woff2") format('woff2'),
     url("../../assets/fonts/FiraSans-BoldItalic.woff") format('woff');
+  font-display: swap;
 }
 
 @font-face {
@@ -40,6 +43,7 @@
     local('FiraSans-Light'),
     url("../../assets/fonts/FiraSans-Light.woff2") format('woff2'),
     url("../../assets/fonts/FiraSans-Light.woff") format('woff');
+  font-display: swap;
 }
 
 @font-face {
@@ -51,4 +55,5 @@
     local('FiraSans-Regular'),
     url("../../assets/fonts/FiraSans-Regular.woff2") format('woff2'),
     url("../../assets/fonts/FiraSans-Regular.woff") format('woff');
+  font-display: swap;
 }

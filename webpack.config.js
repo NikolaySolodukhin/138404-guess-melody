@@ -1,6 +1,6 @@
 const PROD = process.env.NODE_ENV === "production";
 const DEV = process.env.NODE_ENV !== "production";
-const PUBLIC_URL = PROD ? require("./package.json").publicUrl : "[path]";
+const PUBLIC_URL = PROD ? require("./package.json").publicUrl : "";
 
 const path = require("path");
 const webpack = require("webpack");
@@ -65,9 +65,9 @@ module.exports = {
       minify: PROD
         ? {
             preserveLineBreaks: true,
-            collapseWhitespace: true
+            collapseWhitespace: true,
           }
-        : false
+        : false,
     }),
     // Copy some files
     // DEV-only plugins
