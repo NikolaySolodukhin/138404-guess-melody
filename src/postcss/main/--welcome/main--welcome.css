@@ -26,19 +26,21 @@
   border-color: transparent;
   border-left-color: var(--color-orange);
   transform-origin: center;
-}
+  cursor: pointer;
 
-.main-play:hover {
-  transform: scale(1.05);
-}
+  &:hover,
+  &:focus {
+    transform: scale(1.05);
+  }
 
-.main-play:active {
-  transform: scale(1.04);
-}
+  &:active {
+    transform: scale(1.04);
+  }
 
-.main-play:disabled {
-  border-left-color: var(--color-text-grey);
-  animation: preload 1000ms ease-in-out infinite alternate;
+  &:disabled {
+    border-left-color: var(--color-text-grey);
+    animation: preload 1000ms ease-in-out infinite alternate;
+  }
 }
 
 .main-play:hover:disabled,

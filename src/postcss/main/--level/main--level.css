@@ -3,7 +3,7 @@
   justify-content: flex-start;
   padding-top: 210px;
 
-  .main-title {
+  & .main-title {
     margin-bottom: 0.8em;
   }
 }
@@ -40,16 +40,12 @@
   cursor: pointer;
 }
 
-.main-answer:hover {
-  .main-answer-preview {
+.main-answer:hover .main-answer-preview {
     border-color: var(--color-orange);
   }
-}
 
-.main-answer:active {
-  .main-answer-preview {
+.main-answer:active .main-answer-preview {
     border-color: red;
-  }
 }
 
 .main-answer-preview {

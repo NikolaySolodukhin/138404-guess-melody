@@ -37,7 +37,7 @@
 .title {
   display: block;
   margin: 0 0 0.2em;
-  font: italic 300 2em var(--font);
+  font: italic 300 1.5em var(--font);
   text-align: center;
   color: var(--color-text-dark);
 }
