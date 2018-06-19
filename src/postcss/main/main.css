@@ -1,7 +1,3 @@
-/*
- * Разметка главного блока:
- */
-
 .main {
   position: relative;
   display: flex;
@@ -37,7 +33,10 @@
 .title {
   display: block;
   margin: 0 0 0.2em;
-  font: italic 300 1.5em var(--font);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.5em;
+  font-family: var(--font);
   text-align: center;
   color: var(--color-text-dark);
 }
@@ -45,7 +44,9 @@
 .text {
   display: block;
   margin: 0 0 1em;
-  font: 300 0.9em var(--font);
+  font-weight: 300;
+  font-size: 0.9em;
+  font-family: var(--font);
   text-align: center;
   color: var(--color-text-dark);
 }

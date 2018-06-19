@@ -1,0 +1,231 @@
+[{
+  "type": "artist",
+  "question": "Кто исполняет эту песню?",
+  "src": "https://freemusicarchive.org/music/listen/103b72d94fc0e670cbfdd5fbd68f559cea07f091",
+  "answers": [{
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/albums/Gillicuddy_-_Plays_Guitar_Again_-_20170725110900215.jpg?width=290&height=290",
+      "width": 290,
+      "height": 290
+    },
+    "title": "Gillicuddy",
+    "isCorrect": false
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Lobo_Loco_-_20160509152923470.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Loco Loco",
+    "isCorrect": true
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Paper_Navy_-_20120226181728099.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Paper Navy",
+    "isCorrect": false
+  }]
+}, {
+  "type": "genre",
+  "question": "Выберите все хип-хоп песни",
+  "genre": "hip-hop",
+  "answers": [{
+    "src": "https://freemusicarchive.org/music/listen/dc02b2c45d9495e38b82b7679788332c9010ffff",
+    "genre": "folk"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/f0d71292a19efb93bbd8a26c1750d61dc78d584f",
+    "genre": "hip-hop"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/2b099ef273a2544d600f41542b0aec7e347edc77",
+    "genre": "blues"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/103b72d94fc0e670cbfdd5fbd68f559cea07f091",
+    "genre": "classical"
+  }]
+}, {
+  "type": "artist",
+  "question": "Кто исполняет эту песню?",
+  "src": "https://freemusicarchive.org/music/listen/6b6da8220fc2f7f26552e11325c50fe6c765a9b5",
+  "answers": [{
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Michael_Chapman__The_Woodpiles_-_2012081323009192.jpg?width=290&height=290",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Michael Chapman & The Woodpiles",
+    "isCorrect": false
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Tours_-_20120822132441990.png?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Tours",
+    "isCorrect": true
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Stephan_Siebert_-_20160712113333691.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Stephan Siebert",
+    "isCorrect": false
+  }]
+}, {
+  "type": "genre",
+  "question": "Выберите все хип-хоп песни",
+  "genre": "hip-hop",
+  "answers": [{
+    "src": "https://freemusicarchive.org/music/listen/786f47009d1881f0066341cb97d7980c369aed07",
+    "genre": "pop"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/f0d71292a19efb93bbd8a26c1750d61dc78d584f",
+    "genre": "hip-hop"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/8466f4269507a0b5bf9a6aba4907b29da6864975",
+    "genre": "folk"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/2d460c70909a008eb31ef37984af396892c6dabb",
+    "genre": "rock"
+  }]
+}, {
+  "type": "genre",
+  "question": "Выберите классику",
+  "genre": "classical",
+  "answers": [{
+    "src": "https://freemusicarchive.org/music/listen/2b21c41c714bdf1defc6ed9129027a3789aa4e87",
+    "genre": "hip-hop"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/103b72d94fc0e670cbfdd5fbd68f559cea07f091",
+    "genre": "classical"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/2d460c70909a008eb31ef37984af396892c6dabb",
+    "genre": "rock"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/6871cdbd81181364a96defa47560688896a7210b",
+    "genre": "jazz"
+  }]
+}, {
+  "type": "genre",
+  "question": "Выберите все электрические песни",
+  "genre": "electronic",
+  "answers": [{
+    "src": "https://freemusicarchive.org/music/listen/6b6da8220fc2f7f26552e11325c50fe6c765a9b5",
+    "genre": "electronic"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/f4311a5bc95b953e4475630fde156a80d5030432",
+    "genre": "rock"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/3f293d6bc5ee10c1484c4ea7d0867b0eb59697c9",
+    "genre": "electronic"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/786f47009d1881f0066341cb97d7980c369aed07",
+    "genre": "pop"
+  }]
+}, {
+  "type": "artist",
+  "question": "Кто исполняет эту песню?",
+  "src": "https://freemusicarchive.org/music/listen/f0d71292a19efb93bbd8a26c1750d61dc78d584f",
+  "answers": [{
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Stephan_Siebert_-_20160712113333691.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Stephan Siebert",
+    "isCorrect": false
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Black_Ant_-_20100815203310658.png?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Black Ant",
+    "isCorrect": true
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Quantum_Jazz_-_20120509113401114.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Quantum Jazz",
+    "isCorrect": false
+  }]
+}, {
+  "type": "artist",
+  "question": "Кто исполняет эту песню?",
+  "src": "https://freemusicarchive.org/music/listen/786f47009d1881f0066341cb97d7980c369aed07",
+  "answers": [{
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Black_Ant_-_20100815203310658.png?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Black Ant",
+    "isCorrect": false
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Waylon_Thornton_-_2012061793125465.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Waylon Thornton",
+    "isCorrect": true
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Kevin_MacLeod_-_20110715150335323.png?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Kevin MacLeod",
+    "isCorrect": false
+  }]
+}, {
+  "type": "artist",
+  "question": "Кто исполняет эту песню?",
+  "src": "https://freemusicarchive.org/music/listen/dc02b2c45d9495e38b82b7679788332c9010ffff",
+  "answers": [{
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Michael_Chapman__The_Woodpiles_-_2012081323009192.jpg?width=290&height=290",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Michael Chapman & The Woodpiles",
+    "isCorrect": true
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Broke_For_Free_-_2013011621055318.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Broke For Free",
+    "isCorrect": false
+  }, {
+    "image": {
+      "url": "https://freemusicarchive.org/file/images/artists/Black_Math_-_20100122151057551.jpg?width=300&height=300",
+      "width": 300,
+      "height": 300
+    },
+    "title": "Black Math",
+    "isCorrect": false
+  }]
+}, {
+  "type": "genre",
+  "question": "Выберите все блюзовые песни",
+  "genre": "blues",
+  "answers": [{
+    "src": "https://freemusicarchive.org/music/listen/d16c3a65fd312483d61565d55e1fcb99a40291ab",
+    "genre": "country"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/6871cdbd81181364a96defa47560688896a7210b",
+    "genre": "jazz"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/2b099ef273a2544d600f41542b0aec7e347edc77",
+    "genre": "blues"
+  }, {
+    "src": "https://freemusicarchive.org/music/listen/60b81f38d6a1813f6f1e5bea6c6392dfc26cc627",
+    "genre": "folk"
+  }]
+}]

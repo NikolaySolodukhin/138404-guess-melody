@@ -1,8 +1,7 @@
-import {GameSettings} from './data/game-play.js';
+import { GameSettings } from './data/game-play.js';
 
-const countScore = (answers) => {
+const countScore = answers => {
   return answers.reduce((playerScore, answer) => {
-
     if (!answer.correct) {
       return playerScore - GameSettings.QUICK_ANSWER_POINT;
     }
@@ -16,7 +15,6 @@ const countScore = (answers) => {
 };
 
 const getPlayerScore = (answers, remainingNotes) => {
-
   if (answers.length < GameSettings.MAX_COUNT_ANSWERS || remainingNotes < 0) {
     return -1;
   }

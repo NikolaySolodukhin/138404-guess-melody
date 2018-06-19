@@ -1,4 +1,4 @@
-import {GameSettings, QuestionTypes} from './data/game-play.js';
+import { GameSettings, QuestionTypes } from './data/game-play.js';
 import getPlayerScore from './count-score.js';
 import Application from './screens/application.js';
 
@@ -14,22 +14,26 @@ const showLevel = (state, question) => {
   }
 };
 
-const drawFinalState = (state) => {
-  const numberQuickAnswers = state.currentPlayer.answers
-      .filter((answer) => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME)
-      .length;
+const drawFinalState = state => {
+  const numberQuickAnswers = state.currentPlayer.answers.filter(
+    answer => answer.time < GameSettings.MAX_QUICK_ANSWER_TIME
+  ).length;
 
   state.currentPlayer.remainingTime = state.time;
-  state.currentPlayer.remainingNotes = GameSettings.MAX_COUNT_NOTES - state.mistakes;
+  state.currentPlayer.remainingNotes =
+    GameSettings.MAX_COUNT_NOTES - state.mistakes;
   state.currentPlayer.numberQuickAnswers = numberQuickAnswers;
-  state.currentPlayer.spentTime = GameSettings.MAX_GAME_TIME - state.currentPlayer.remainingTime;
-  state.currentPlayer.score = getPlayerScore(state.currentPlayer.answers, state.currentPlayer.remainingNotes);
+  state.currentPlayer.spentTime =
+    GameSettings.MAX_GAME_TIME - state.currentPlayer.remainingTime;
+  state.currentPlayer.score = getPlayerScore(
+    state.currentPlayer.answers,
+    state.currentPlayer.remainingNotes
+  );
 
   return state;
 };
 
-const gameControl = (state) => {
-
+const gameControl = state => {
   // Если игрок совершил максимально возможное количество ошибок
   if (state.mistakes > GameSettings.MAX_COUNT_MISTAKES) {
     Application.initFailResult(state);

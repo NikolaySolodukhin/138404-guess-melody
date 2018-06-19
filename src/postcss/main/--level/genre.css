@@ -35,7 +35,10 @@ input[type=checkbox]:checked + .genre-answer-check {
   display: block;
   margin: 20px auto 0;
   padding: 0 20px;
-  font: italic 300 2em var(--font);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 2em;
+  font-family: var(--font);
   text-align: center;
   color: var(--color-text-dark);
   background-color: var(--color-beige);

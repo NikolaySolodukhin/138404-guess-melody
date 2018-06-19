@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {GameWords} from './data/game-play.js';
+import { GameWords } from './data/game-play.js';
 import getEndOfWords from './get-end-of-words.js';
 
 suite(`Decline words`, () => {

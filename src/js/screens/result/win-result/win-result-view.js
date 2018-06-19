@@ -1,4 +1,4 @@
-import {GameWords} from '../../../data/game-play.js';
+import { GameWords } from '../../../data/game-play.js';
 import convertSecondsToMinutes from '../../../convert-sec-to-minutes.js';
 import getEndOfWords from '../../../get-end-of-words.js';
 import getPlayerResultText from '../../../templates/get-player-result-text.js';
@@ -14,11 +14,25 @@ class WinResultView extends AbstractResultView {
 
   getInfoTemplate() {
     const spentTime = convertSecondsToMinutes(this.currentPlayer.spentTime);
-    const minutes = `${spentTime.minutes} ${getEndOfWords(Math.trunc(this.currentPlayer.spentTime / 60), GameWords.MINUTES)}`;
-    const seconds = `${spentTime.seconds} ${getEndOfWords(this.currentPlayer.spentTime % 60, GameWords.SECONDS)}`;
-    const score = `${this.currentPlayer.score} ${getEndOfWords(this.currentPlayer.score, GameWords.SCORE)}`;
-    const quickAnswers = `${this.currentPlayer.numberQuickAnswers} ${getEndOfWords(this.currentPlayer.numberQuickAnswers, GameWords.FAST)}`;
-    const mistakes = `${this.state.mistakes} ${getEndOfWords(this.state.mistakes, GameWords.MISTAKES)}`;
+    const minutes = `${spentTime.minutes} ${getEndOfWords(
+      Math.trunc(this.currentPlayer.spentTime / 60),
+      GameWords.MINUTES
+    )}`;
+    const seconds = `${spentTime.seconds} ${getEndOfWords(
+      this.currentPlayer.spentTime % 60,
+      GameWords.SECONDS
+    )}`;
+    const score = `${this.currentPlayer.score} ${getEndOfWords(
+      this.currentPlayer.score,
+      GameWords.SCORE
+    )}`;
+    const quickAnswers = `${
+      this.currentPlayer.numberQuickAnswers
+    } ${getEndOfWords(this.currentPlayer.numberQuickAnswers, GameWords.FAST)}`;
+    const mistakes = `${this.state.mistakes} ${getEndOfWords(
+      this.state.mistakes,
+      GameWords.MISTAKES
+    )}`;
     const resultText = getPlayerResultText(this.currentPlayer, this.result);
 
     return `<h2 class="title">Вы настоящий меломан!</h2>

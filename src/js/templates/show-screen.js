@@ -1,6 +1,6 @@
 const gameContainer = document.querySelector(`.main-js`);
 
-const showScreen = (screen) => {
+const showScreen = screen => {
   while (gameContainer.hasChildNodes()) {
     gameContainer.removeChild(gameContainer.lastChild);
   }

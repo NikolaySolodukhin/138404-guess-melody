@@ -1,13 +1,10 @@
-const pkg = require("./package.json");
-
 module.exports = {
   plugins: [
-    require("postcss-import"),
-    require("postcss-url")({
-        url: "rebase",
-        assetsPath: ".../../",
-        useHash: true
+    require('postcss-import'),
+    require('postcss-url'),
+    require('postcss-preset-env')({
+      stage: 1,
     }),
-    require("postcss-cssnext")
-  ]
+    require('postcss-nested'),
+  ],
 };

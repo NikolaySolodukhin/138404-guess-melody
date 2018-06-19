@@ -1,4 +1,4 @@
-import {GameSettings} from './data/game-play.js';
+import { GameSettings } from './data/game-play.js';
 import convertSecondsToMinutes from './convert-sec-to-minutes.js';
 import ResultFail from './screens/result/fail-result/fail-result.js';
 import getCircumferenceSetValue from './get-circumference-value.js';
@@ -12,7 +12,11 @@ class TimerView {
   }
 
   get template() {
-    const strokeDashoffset = getCircumferenceSetValue(CIRCUMFERENCE, GameSettings.MAX_GAME_TIME, this.seconds);
+    const strokeDashoffset = getCircumferenceSetValue(
+      CIRCUMFERENCE,
+      GameSettings.MAX_GAME_TIME,
+      this.seconds
+    );
 
     return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
                <circle
@@ -34,9 +38,17 @@ class TimerView {
 
     const timer = document.querySelector(`.timer`);
     const timerValue = timer.parentNode.querySelector(`.js-timer-value`);
-    timer.querySelector(`.timer-line-js`).style.strokeDashoffset = getCircumferenceSetValue(CIRCUMFERENCE, GameSettings.MAX_GAME_TIME, seconds);
-    timerValue.querySelector(`.js-timer-value-mins`).innerText = newTime.minutes;
-    timerValue.querySelector(`.js-timer-value-secs`).innerText = newTime.seconds;
+    timer.querySelector(
+      `.timer-line-js`
+    ).style.strokeDashoffset = getCircumferenceSetValue(
+      CIRCUMFERENCE,
+      GameSettings.MAX_GAME_TIME,
+      seconds
+    );
+    timerValue.querySelector(`.js-timer-value-mins`).innerText =
+      newTime.minutes;
+    timerValue.querySelector(`.js-timer-value-secs`).innerText =
+      newTime.seconds;
 
     if (seconds <= GameSettings.MIN_TIMER_DANGER_ZONE) {
       timerValue.classList.add(`timer-value--time-danger`);

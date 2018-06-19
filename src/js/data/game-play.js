@@ -13,7 +13,7 @@ const GameSettings = {
 
 const QuestionTypes = {
   QUESTION_ARTIST: `artist`,
-  QUESTION_GENRE: `genre`
+  QUESTION_GENRE: `genre`,
 };
 
 const intervalSecondAfterAnswer = 1000;
@@ -23,7 +23,7 @@ const GameWords = {
   SECONDS: [`секунду`, `секунды`, `секунд`],
   SCORE: [`балл`, `балла`, `баллов`],
   FAST: [`быстрый`, `быстрых`, `быстрых`],
-  MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
+  MISTAKES: [`ошибку`, `ошибки`, `ошибок`],
 };
 
-export {GameSettings, GameWords, QuestionTypes, intervalSecondAfterAnswer};
+export { GameSettings, GameWords, QuestionTypes, intervalSecondAfterAnswer };

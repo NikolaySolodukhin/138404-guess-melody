@@ -5,13 +5,13 @@ class ArtistQuestion extends AbstractQuestion {
     super(loadedQuestion);
     this.song = {
       src: loadedQuestion.src,
-      url: null
+      url: null,
     };
     this.correctAnswer = this._getArtistCorrectAnswer(loadedQuestion.answers);
   }
 
   _getArtistCorrectAnswer(answers) {
-    const correctAnswer = answers.find((answer) => answer.isCorrect);
+    const correctAnswer = answers.find(answer => answer.isCorrect);
 
     return correctAnswer ? correctAnswer.title : ``;
   }

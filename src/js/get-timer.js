@@ -1,4 +1,4 @@
-import {GameSettings} from './data/game-play.js';
+import { GameSettings } from './data/game-play.js';
 class GetTimer {
   constructor(seconds) {
     this._seconds = seconds;

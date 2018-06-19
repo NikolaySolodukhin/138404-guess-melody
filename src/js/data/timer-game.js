@@ -1,5 +1,5 @@
 import GetTimer from '../get-timer.js';
-import {GameSettings} from './game-play.js';
+import { GameSettings } from './game-play.js';
 
 const oneSecondInterval = 1000;
 class TimerGame {

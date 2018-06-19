@@ -1,4 +1,4 @@
-const showError = (errorMessage) => {
+const showError = errorMessage => {
   const errorTooltip = document.createElement(`div`);
   const errorTooltipText = document.createElement(`span`);
   const secondTimeoutAfterError = 5000;

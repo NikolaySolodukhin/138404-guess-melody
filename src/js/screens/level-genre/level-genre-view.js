@@ -1,25 +1,38 @@
 import AbstractView from '../../abstract-view.js';
 import TimerView from '../../timer-view.js';
-import {getMistakeTemplate, getPlayerWrapperTemplate} from '../../templates/blocks.js';
+import {
+  getMistakeTemplate,
+  getPlayerWrapperTemplate,
+} from '../../templates/blocks.js';
 
 const answerSendButtonTemplate = `<button class="genre-answer-send js-genre-answer-send" type="submit" disabled>Ответить</button>`;
 
-const getTitleTemplate = (text) => {
+const getTitleTemplate = text => {
   return `<h2 class="title">${text}</h2>`;
 };
 
-const getGenreAnswerTemplate = (answerNumber, questionType, song) => {
-  return `<div class="genre-answer">
+const getGenreAnswerTemplate = (
+  answerNumber,
+  questionType,
+  song
+) => `<div class="genre-answer">
              ${getPlayerWrapperTemplate(questionType, song.url)}
-             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${song.src}" id="a-${answerNumber}">
+             <input class="js-genre-answer-input" type="checkbox" name="answer" value="${
+               song.src
+             }" id="a-${answerNumber}">
              <label class="genre-answer-check" for="a-${answerNumber}"></label>
            </div>`;
-};
 
-const getScreenLevelGenreTemplate = (timerTemplate, mistakesNumber, question) => {
+const getScreenLevelGenreTemplate = (
+  timerTemplate,
+  mistakesNumber,
+  question
+) => {
   const answersTemplate = question.answerList
-      .map((answer, answerIndex) => getGenreAnswerTemplate(answerIndex++, question.type, answer))
-      .join(``);
+    .map((answer, answerIndex) =>
+      getGenreAnswerTemplate(answerIndex++, question.type, answer)
+    )
+    .join(``);
   return `<section class="main main--level main--level-genre js-main">
              ${timerTemplate}
              ${getMistakeTemplate(mistakesNumber)}
@@ -42,20 +55,34 @@ class LevelGenreView extends AbstractView {
   }
 
   get template() {
-    return getScreenLevelGenreTemplate(this.timerView.template, this.mistakesNumber, this.question);
+    return getScreenLevelGenreTemplate(
+      this.timerView.template,
+      this.mistakesNumber,
+      this.question
+    );
   }
 
   bind() {
     const genreForm = this._element.querySelector(`.js-genre`);
-    const genrePlayButtons = Array.from(genreForm.querySelectorAll(`.js-song-play`));
-    const genreAnswersInputs = Array.from(genreForm.querySelectorAll(`.js-genre-answer-input`));
+    const genrePlayButtons = Array.from(
+      genreForm.querySelectorAll(`.js-song-play`)
+    );
+    const genreAnswersInputs = Array.from(
+      genreForm.querySelectorAll(`.js-genre-answer-input`)
+    );
     const sendButton = genreForm.querySelector(`.js-genre-answer-send`);
 
-    genreForm.addEventListener(`click`, (evt) => this._onGenreFormClick(evt, genrePlayButtons));
+    genreForm.addEventListener(`click`, evt =>
+      this._onGenreFormClick(evt, genrePlayButtons)
+    );
 
-    genreForm.addEventListener(`change`, (evt) => this._onGenreFormChange(evt, genreAnswersInputs, sendButton));
+    genreForm.addEventListener(`change`, evt =>
+      this._onGenreFormChange(evt, genreAnswersInputs, sendButton)
+    );
 
-    sendButton.addEventListener(`click`, (evt) => this._onSendButtonClick(evt, genreForm));
+    sendButton.addEventListener(`click`, evt =>
+      this._onSendButtonClick(evt, genreForm)
+    );
   }
 
   updateTime(seconds, state) {
@@ -65,11 +92,13 @@ class LevelGenreView extends AbstractView {
   _onGenreFormClick(evt, playButtons) {
     if (evt.target.closest(`.js-song-play`)) {
       const currentPlayButton = evt.target;
-      const otherPlayButtons = playButtons.slice().filter((playButton) => playButton !== currentPlayButton);
+      const otherPlayButtons = playButtons
+        .slice()
+        .filter(playButton => playButton !== currentPlayButton);
 
       evt.preventDefault();
 
-      otherPlayButtons.forEach((playButton) => {
+      otherPlayButtons.forEach(playButton => {
         playButton.classList.remove(`player-control--pause`);
         playButton.previousElementSibling.pause();
       });
@@ -87,13 +116,17 @@ class LevelGenreView extends AbstractView {
 
   _onGenreFormChange(evt, checkboxes, button) {
     if (evt.target.closest(`.js-genre-answer-input`)) {
-      button.disabled = !checkboxes.some((checkbox) => checkbox.checked);
+      button.disabled = !checkboxes.some(checkbox => checkbox.checked);
     }
   }
 
   _onSendButtonClick(evt, form) {
-    const genreAnswersCheckedInputs = Array.from(form.querySelectorAll(`.js-genre-answer-input:checked`));
-    const answers = genreAnswersCheckedInputs.map((checkedInput) => checkedInput.value);
+    const genreAnswersCheckedInputs = Array.from(
+      form.querySelectorAll(`.js-genre-answer-input:checked`)
+    );
+    const answers = genreAnswersCheckedInputs.map(
+      checkedInput => checkedInput.value
+    );
 
     evt.preventDefault();
     this.onSendAnswer(answers);

@@ -1,6 +1,6 @@
 const CASES = [2, 0, 1, 1, 1, 2];
 
-const getCase = (number) => {
+const getCase = number => {
   if (number < 1) {
     return 2;
   }
@@ -9,7 +9,7 @@ const getCase = (number) => {
     return 2;
   }
 
-  return CASES[(number % 10 < 5) ? number % 10 : 5];
+  return CASES[number % 10 < 5 ? number % 10 : 5];
 };
 
 const getEndOfWords = (number, wordVariants) => {

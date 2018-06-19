@@ -1,6 +1,5 @@
-import {GameSettings} from '../data/game-play.js';
+import { GameSettings } from '../data/game-play.js';
 const getPlayerResultText = (currentPlayer, result) => {
-
   // Если у игрока кончилось время
   if (currentPlayer.remainingTime === GameSettings.TIME_END) {
     return `Время вышло! Вы не успели отгадать все мелодии.`;
@@ -12,7 +11,9 @@ const getPlayerResultText = (currentPlayer, result) => {
   }
 
   // Если игрок успешно закончил игру
-  return `Вы заняли ${result.currentPlayerPlace}-е место из ${result.playersStats.length} игроков. Это лучше чем у ${result.defeatedPlayers}% игроков.`;
+  return `Вы заняли ${result.currentPlayerPlace}-е место из ${
+    result.playersStats.length
+  } игроков. Это лучше чем у ${result.defeatedPlayers}% игроков.`;
 };
 
 export default getPlayerResultText;

@@ -1,22 +1,23 @@
-import {QuestionTypes} from '../data/game-play.js';
+import { QuestionTypes } from '../data/game-play.js';
 import PlayerAnswer from './player-answer.js';
 
 const testGenreAnswer = (answer, correctAnswer) => {
   if (answer.length !== correctAnswer.length) {
-    return false;
+    return;
   }
-  return answer.every((answerItem) => correctAnswer.includes(answerItem));
+  return answer.every(answerItem => correctAnswer.includes(answerItem));
 };
 
 // Добавляем ответ к остальным ответам игрока
 const addPlayerAnswer = (state, isAnswerCorrect, answerTime) => {
-
   // Если ответ неправильный, увеличиваем количество ошибок
   if (!isAnswerCorrect) {
     state.mistakes++;
   }
 
-  state.currentPlayer.answers.push(new PlayerAnswer(isAnswerCorrect, answerTime));
+  state.currentPlayer.answers.push(
+    new PlayerAnswer(isAnswerCorrect, answerTime)
+  );
 };
 
 const testAnswer = (state, question, answer, answerTime) => {

@@ -1,4 +1,4 @@
-const getNode = (string) => {
+const getNode = string => {
   let node = document.createElement(`section`);
   node.innerHTML = string;
 

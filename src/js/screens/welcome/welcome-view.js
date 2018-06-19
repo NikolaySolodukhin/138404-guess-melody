@@ -1,5 +1,5 @@
 import AbstractView from '../../abstract-view.js';
-import {logoTemplate} from '../../templates/blocks.js';
+import { logoTemplate } from '../../templates/blocks.js';
 
 const startButtonTemplate = `<button class="main-play js-main-start" disabled>Начать игру</button>`;
 

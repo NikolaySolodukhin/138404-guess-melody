@@ -5,7 +5,7 @@ const UNKNOWN_USERNAME = `unknown-racсoon`;
 
 class Loader {
   static async loadData() {
-    const response = await fetch(`${SERVER_URL}/questions`);
+    const response = await fetch(`${PUBLIC_URL}data/data.json`);
 
     return response.json();
   }
@@ -20,9 +20,9 @@ class Loader {
     const requestSettings = {
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': `application/json`
+        'Content-Type': `application/json`,
       },
-      method: `POST`
+      method: `POST`,
     };
 
     return fetch(`${SERVER_URL}/stats/${username}`, requestSettings);
